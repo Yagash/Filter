@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Array Manipulation Example</h1>
+
+    <div>
+        <label for="inputArray">Enter numbers separated by commas:</label><br>
+        <input type="text" id="inputArray" ><br>
+        <button onclick="processInput()">Get Array</button>
+    </div>
+
+    <div id="operations" style="display: none;">
+        <button onclick="sortNumbers()">Sort Numbers</button>
+   
+        <button onclick="sumNumbers()">Sum Numbers</button>
+        <button onclick="filterEvenNumbers()">Filter</button>
+    </div>
+
+    <div id="results">
+        
+    </div>
+
+    <script>
+        let numbers = [];
+
+        
+        function processInput() {
+            let input = document.getElementById('inputArray').value.trim();
+            // Split 
+            numbers = input.split(/\s*,\s*/).map(function(item) {
+                return parseInt(item.trim(), 10);
+            });
+
+            
+            document.getElementById('operations').style.display = 'block';
+            document.getElementById('results').innerHTML = '';
+        }
+
+        
+        function sortNumbers() {
+            let sortedNumbers = numbers.slice().sort(function(a, b) {
+                return a - b;
+            });
+            displayResults('Sorted numbers', sortedNumbers);
+        }
+
+       
+        function filterEvenNumbers() {
+            let evenNumbers = numbers.filter(function(num) {
+                return num % 2 === 0;
+            });
+            displayResults('Even numbers', evenNumbers);
+        }
+
+        
+        function sumNumbers() {
+            let sum = numbers.reduce(function(acc, curr) {
+                return acc + curr;
+            }, 0);
+            displayResults('Sum of numbers', sum);
+        }
+
+        
+
+      
+        function displayResults(title, data) {
+            let resultsDiv = document.getElementById('results');
+            let resultElement = document.createElement('div');
+            resultElement.classList.add('result');
+            resultElement.innerHTML = '<strong>' + title + '</strong>: ' + JSON.stringify(data);
+            resultsDiv.appendChild(resultElement);
+        }
+    </script>
+</body>
+</html>
